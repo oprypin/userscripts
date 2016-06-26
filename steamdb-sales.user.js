@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SteamDB sales page improvements
 // @description  Add buttons to hide non-"highest recorded discount"
-// @version      1
+// @version      2
 // @include      https://steamdb.info/sales/*
 // @run-at       document-end
 // @author       Oleh Prypin
@@ -12,6 +12,6 @@ var $;
 $ = jQuery;
 $('<div class="steamy-checkbox-control">\n    Show only lowest:\n    <span class="btn btn-sm btn-social">&le;</span>\n    <span class="btn btn-sm btn-social">&lt;</span>\n</div>').insertAfter('#js-merged-checkbox').find('span').click(function(){
   var sel;
-  sel = $(this).text() === '<' ? '.price-discount, .price-discount-minor' : '.highest-discount';
-  $(sel).closest('tr').hide();
+  sel = $(this).text() === '<' ? ':not(:has(.price-discount-major))' : ':has(.highest-discount)';
+  $("table.table-sales tr.app" + sel).hide();
 });

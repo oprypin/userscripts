@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add buttons to hide non-"highest recorded discount"
-# @version      1
+# @version      2
 # @include      https://steamdb.info/sales/*
 # @run-at       document-end
 # @author       Oleh Prypin
@@ -20,7 +20,7 @@ $ '''
     .insert-after '#js-merged-checkbox'
     .find 'span' .click !->
         sel = if $ this .text! == '<'
-            '.price-discount, .price-discount-minor'
+            ':not(:has(.price-discount-major))'
         else
-            '.highest-discount'
-        $ sel .closest 'tr' .hide!
+            ':has(.highest-discount)'
+        $ "table.table-sales tr.app#sel" .hide!
