@@ -1,0 +1,9 @@
+*
+!.gitignore
+!README*
+!LICENSE*
+!*.md
+!/source/
+!/source/*.ls
+!/source/generate.sh
+!/*.user.js
