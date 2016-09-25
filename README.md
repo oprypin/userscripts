@@ -39,6 +39,15 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 ![Screenshot](https://i.imgur.com/dpom1ub.png)
 
 
+## Discovery Queue Anti-VN
+
+**Skip Visual Novels and CYOAs in Steam's [Discovery Queue](http://store.steampowered.com/explore/)**
+
+**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-discovery-anti-vn.user.js)**
+| [Source code](source/steam-discovery-anti-vn.user.ls)
+| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-discovery-anti-vn.user.js)
+
+
 ## Click through Steam discovery queue
 
 **Automatically click "next" in Steam's [Discovery Queue](http://store.steampowered.com/explore/)**
