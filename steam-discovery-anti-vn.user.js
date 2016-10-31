@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discovery Queue Anti-VN
 // @description  Skip Visual Novels and CYOAs in Steam's Discovery Queue
-// @version      1
+// @version      2
 // @include      http://store.steampowered.com/app/*
 // @run-at       document-end
 // @author       Oleh Prypin
@@ -12,7 +12,7 @@ var $, ignore, id;
 $ = jQuery;
 ignore = function(){
   var i$, ref$, len$, tag, ref1$;
-  for (i$ = 0, len$ = (ref$ = $('a.app_tag')).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = $('a.app_tag').slice(0, 7)).length; i$ < len$; ++i$) {
     tag = ref$[i$];
     if ((ref1$ = $.trim(tag.innerHTML)) === "Choose Your Own Adventure" || ref1$ === "Visual Novel") {
       return true;

@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Discovery Queue Anti-VN
 # @description  Skip Visual Novels and CYOAs in Steam's Discovery Queue
-# @version      1
+# @version      2
 # @include      http://store.steampowered.com/app/*
 # @run-at       document-end
 # @author       Oleh Prypin
@@ -11,7 +11,7 @@
 $ = jQuery
 
 ignore = do ->
-    for tag in $ 'a.app_tag'
+    for tag in $ 'a.app_tag' .slice 0, 7
         if $.trim(tag.inner-HTML) in [
             "Choose Your Own Adventure", "Visual Novel"
         ]
