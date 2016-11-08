@@ -1,9 +1,10 @@
 # ==UserScript==
 # @name         Steam prices round-up
 # @description  Round up the prices on Steam $9.99 -> $10.00
-# @version      3
+# @version      4
 # @include      http://store.steampowered.com/*
 # @include      http://steamcommunity.com/*/wishlist
+# @include      https://steamcommunity.com/*/wishlist
 # @include      https://steamdb.info/*
 # @run-at       document-end
 # @author       Oleh Prypin

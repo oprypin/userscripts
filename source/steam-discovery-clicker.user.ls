@@ -1,8 +1,8 @@
 # ==UserScript==
 # @name         Click through Steam discovery queue
 # @description  Automatically click "next" in Steam's Discovery Queue
-# @version      1
-# @include      http://store.steampowered.com/*
+# @version      2
+# @include      http://store.steampowered.com/app/*
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

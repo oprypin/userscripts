@@ -1,8 +1,9 @@
 # ==UserScript==
 # @name         Steam badges page improvements
 # @description  Display showcase links on Steam badges page
-# @version      1
+# @version      2
 # @include      http://steamcommunity.com/id/*/badges/
+# @include      https://steamcommunity.com/id/*/badges/
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

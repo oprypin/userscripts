@@ -1,9 +1,11 @@
 # ==UserScript==
 # @name         Steam achievements page improvements
 # @description  Show descriptions of hidden achievements for games you own
-# @version      1
+# @version      2
 # @include      http://steamcommunity.com/stats/*/*
+# @include      https://steamcommunity.com/stats/*/*
 # @include      http://steamcommunity.com/*/stats/*
+# @include      https://steamcommunity.com/*/stats/*
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/
