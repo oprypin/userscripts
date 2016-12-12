@@ -79,3 +79,12 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 | [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steamdb-anti-wilson.user.js)
 
 ![Screenshot](https://i.imgur.com/Z9ag3Qn.png)
+
+
+## Gmail Refresher
+
+**Periodically click Refresh in Gmail**
+
+**[Install](https://github.com/blaxpirit/userscripts/raw/master/gmail-refresher.user.js)**
+| [Source code](source/gmail-refresher.user.ls)
+| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/gmail-refresher.user.js)
