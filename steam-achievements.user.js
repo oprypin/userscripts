@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam achievements page improvements
 // @description  Show descriptions of hidden achievements for games you own
-// @version      2
+// @version      3
 // @include      http://steamcommunity.com/stats/*/*
 // @include      https://steamcommunity.com/stats/*/*
 // @include      http://steamcommunity.com/*/stats/*
@@ -16,7 +16,7 @@ $ = jQuery;
 newRow = '<div class="achieveRow"><div class="achieveImgHolder"><img width="64" height="64"></div><div class="achieveTxtHolder"><div class="achieveTxt"><h3 class="ellipsis"></h3><h5 class="ellipsis"></h5></div></div></div>';
 id = window.location.href.match(/\/stats\/([^\/?]+)/)[1];
 $.ajax({
-  url: "http://steamcommunity.com/my/stats/" + id + "/achievements/",
+  url: "//steamcommunity.com/my/stats/" + id + "/achievements/",
   headers: {
     "X-ValveUserAgent": "panorama Jun 14 2016 23:23:40"
   },

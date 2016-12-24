@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Steam achievements page improvements
 # @description  Show descriptions of hidden achievements for games you own
-# @version      2
+# @version      3
 # @include      http://steamcommunity.com/stats/*/*
 # @include      https://steamcommunity.com/stats/*/*
 # @include      http://steamcommunity.com/*/stats/*
@@ -29,7 +29,7 @@ new-row = '
 id = window.location.href.match ///stats/([^/?]+)// .1
 
 $.ajax do
-    url: "http://steamcommunity.com/my/stats/#id/achievements/"
+    url: "//steamcommunity.com/my/stats/#id/achievements/"
     headers:
         "X-ValveUserAgent": "panorama Jun 14 2016 23:23:40"
     success: (data)!->
