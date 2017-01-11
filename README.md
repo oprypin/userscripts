@@ -10,9 +10,9 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Round up the prices on [Steam](http://store.steampowered.com/) $9.99 &rarr; $10.00**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-prices.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-prices.user.js)**
 | [Source code](source/steam-prices.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-prices.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-prices.user.js)
 
 ![Screenshot](https://i.imgur.com/wbdr2zz.png)
 
@@ -21,9 +21,9 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Show descriptions of hidden achievements for games you own**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-achievements.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-achievements.user.js)**
 | [Source code](source/steam-achievements.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-achievements.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-achievements.user.js)
 
 ![Screenshot](https://i.imgur.com/e4T4NgY.png)
 
@@ -32,9 +32,9 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Display [showcase](http://www.steamcardexchange.net/index.php?gamepage-appid-480730) links on Steam [badges page](http://steamcommunity.com/my/badges/)**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-badges.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-badges.user.js)**
 | [Source code](source/steam-badges.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-badges.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-badges.user.js)
 
 ![Screenshot](https://i.imgur.com/dpom1ub.png)
 
@@ -43,18 +43,18 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Skip Visual Novels and CYOAs in Steam's [Discovery Queue](http://store.steampowered.com/explore/)**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-discovery-anti-vn.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-discovery-anti-vn.user.js)**
 | [Source code](source/steam-discovery-anti-vn.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-discovery-anti-vn.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-discovery-anti-vn.user.js)
 
 
 ## Click through Steam discovery queue
 
 **Automatically click "next" in Steam's [Discovery Queue](http://store.steampowered.com/explore/)**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steam-discovery-clicker.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-discovery-clicker.user.js)**
 | [Source code](source/steam-discovery-clicker.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steam-discovery-clicker.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-discovery-clicker.user.js)
 
 ![Screenshot](https://i.imgur.com/09o3p5g.png)
 
@@ -63,9 +63,9 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Add buttons to hide non-"highest recorded discount"**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steamdb-sales.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steamdb-sales.user.js)**
 | [Source code](source/steamdb-sales.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steamdb-sales.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steamdb-sales.user.js)
 
 ![Screenshot](https://i.imgur.com/VcrpJfe.png)
 
@@ -74,9 +74,9 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Replace Wilson ratings with simple percentages, like on Steam store**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/steamdb-anti-wilson.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/steamdb-anti-wilson.user.js)**
 | [Source code](source/steamdb-anti-wilson.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/steamdb-anti-wilson.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steamdb-anti-wilson.user.js)
 
 ![Screenshot](https://i.imgur.com/Z9ag3Qn.png)
 
@@ -85,6 +85,6 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 **Periodically click Refresh in Gmail**
 
-**[Install](https://github.com/blaxpirit/userscripts/raw/master/gmail-refresher.user.js)**
+**[Install](https://github.com/oprypin/userscripts/raw/master/gmail-refresher.user.js)**
 | [Source code](source/gmail-refresher.user.ls)
-| [Changelog](https://github.com/blaxpirit/userscripts/commits/master/gmail-refresher.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/gmail-refresher.user.js)
