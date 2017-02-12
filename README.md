@@ -6,6 +6,16 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 / [Chrome](https://tampermonkey.net/)
 / [Other](https://greasyfork.org/help/installing-user-scripts)
 
+## Hexcells levels clipper
+
+**Copy [Hexcells levels](https://www.reddit.com/r/hexcellslevels/) to clipboard**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/hexcellslevels-clipper.user.js)**
+| [Source code](source/hexcellslevels-clipper.user.ls)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/hexcellslevels-clipper.user.js)
+
+![Screenshot](https://i.imgur.com/aXBDL1C.png)
+
 ## Steam prices round-up
 
 **Round up the prices on [Steam](http://store.steampowered.com/) $9.99 &rarr; $10.00**
