@@ -8,13 +8,13 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 ## Hexcells levels clipper
 
-**Copy [Hexcells levels](https://www.reddit.com/r/hexcellslevels/) to clipboard**
+**Preview and copy [Hexcells levels](https://www.reddit.com/r/hexcellslevels/) to clipboard**
 
 **[Install](https://github.com/oprypin/userscripts/raw/master/hexcellslevels-clipper.user.js)**
 | [Source code](source/hexcellslevels-clipper.user.ls)
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/hexcellslevels-clipper.user.js)
 
-![Screenshot](https://i.imgur.com/aXBDL1C.png)
+![Screenshot](https://i.imgur.com/Y84XAxw.png)
 
 ## Steam prices round-up
 
