@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Gmail Refresher
 // @description  Periodically click Refresh in Gmail
-// @version      1
+// @version      2
 // @include      https://mail.google.com/mail/*
 // @run-at       document-end
 // @noframes
@@ -14,9 +14,8 @@ xpath = function(s){
   return document.evaluate(s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 };
 mouseEvent = function(type, el){
-  var x$, ev;
-  x$ = ev = document.createEvent('MouseEvents');
-  x$.initEvent(type, true, true);
+  var ev;
+  ev = new MouseEvent(type);
   return el.dispatchEvent(ev);
 };
 click = function(btn){
@@ -27,7 +26,7 @@ click = function(btn){
 };
 refresh = function(){
   var btn;
-  return setTimeout(refresh, (btn = xpath("//div[@role='button' and text()='Refresh']"))
+  return setTimeout(refresh, (btn = xpath("//div[@role='button']/*[text()='Refresh']").parentNode)
     ? (click(btn), console.log(new Date()), 60000 * (15 + 15 * Math.random()))
     : 1000 * (20 + 100 * Math.random()));
 };

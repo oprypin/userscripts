@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Gmail Refresher
 # @description  Periodically click Refresh in Gmail
-# @version      1
+# @version      2
 # @include      https://mail.google.com/mail/*
 # @run-at       document-end
 # @noframes
@@ -13,8 +13,7 @@ xpath = (s)->
     document.evaluate(s, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).single-node-value
 
 mouse-event = (type, el)->
-    ev = document.create-event \MouseEvents
-        ..init-event(type, true, true)
+    ev = new MouseEvent(type)
     el.dispatch-event ev
 
 click = (btn)->
@@ -25,7 +24,7 @@ click = (btn)->
 
 refresh = ->
     set-timeout refresh,
-        if btn = xpath "//div[@role='button' and text()='Refresh']"
+        if btn = xpath "//div[@role='button']/*[text()='Refresh']" .parent-node
             click btn
             console.log new Date()
             60000 * (15 + 15 * Math.random!)  # 15 to 30 minutes
