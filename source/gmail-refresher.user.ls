@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Gmail Refresher
 # @description  Periodically click Refresh in Gmail
-# @version      2
+# @version      3
 # @include      https://mail.google.com/mail/*
 # @run-at       document-end
 # @noframes
@@ -24,9 +24,9 @@ click = (btn)->
 
 refresh = ->
     set-timeout refresh,
-        if btn = xpath "//div[@role='button']/*[text()='Refresh']" .parent-node
-            click btn
-            console.log new Date()
+        if btn = xpath "//div[@role='button']/*[text()='Refresh']"
+            click btn.parent-node
+            console.log "Mail checked: #{new Date()}"
             60000 * (15 + 15 * Math.random!)  # 15 to 30 minutes
         else
             1000 * (20 + 100 * Math.random!)  # 20 to 120 seconds
