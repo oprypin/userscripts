@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SteamDB sales page improvements
 // @description  Add buttons to hide non-"highest recorded discount"
-// @version      4
+// @version      5
 // @include      https://steamdb.info/sales/*
 // @run-at       document-end
 // @author       Oleh Prypin
@@ -16,19 +16,31 @@ applyStyle = function(css, enable){
   if (enable) {
     appliedStyles[css] = $('<style>').html(css).appendTo('head');
   } else {
-    appliedStyles[css].remove();
+    try {
+      appliedStyles[css].remove();
+    } catch (e$) {}
   }
 };
-$('.dataTables_length select').val(-1).trigger('change');
+$('.dataTables_length select').val(-1).change();
 ref$ = $('#js-filters>div'), col1 = ref$[0], col2 = ref$[1];
 $('<div class="steamy-checkbox-control"><div class="steamy-checkbox"></div><span class="steamy-checkbox-label">Hide "not interested"</span></div>').appendTo(col1).click(function(){
   var checked;
   checked = $(this).toggleClass('checked').hasClass('checked');
   applyStyle('.ignored { display: none; }', checked);
 }).click();
-$('<div class="steamy-checkbox-control">\n    Show only lowest:\n    <span class="btn btn-sm btn-social">&le;</span>\n    <span class="btn btn-sm btn-social">&lt;</span>\n</div>').appendTo(col1).find('span').click(function(){
-  var sel;
-  sel = $(this).text() === '<' ? ':not(:has(.price-discount-major))' : ':has(.highest-discount)';
-  $("table.table-sales tr.app" + sel).hide();
-});
+$('<div class="fancy-select"><select>\n    <option value="all">Any discount</option>\n    <option value="le">Hide smaller discounts</option>\n    <option value="lt">Only new highest discounts</option>\n</select></div>').prependTo(col1).find('select').change(function(){
+  var val, kinds, selector, kind;
+  val = $(this).val();
+  kinds = {
+    le: ':has(.highest-discount)',
+    lt: ':not(:has(.price-discount-major))'
+  };
+  if (val !== 'all') {
+    selector = 'table.table-sales tr.app' + kinds[val];
+    $(selector).addClass("hide-" + val);
+  }
+  for (kind in kinds) {
+    applyStyle(".hide-" + kind + " { display: none; }", val === kind);
+  }
+}).val('le').change();
 $('#js-merged-checkbox').appendTo(col2);

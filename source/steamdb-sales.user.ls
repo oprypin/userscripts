@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add buttons to hide non-"highest recorded discount"
-# @version      4
+# @version      5
 # @include      https://steamdb.info/sales/*
 # @run-at       document-end
 # @author       Oleh Prypin
@@ -14,10 +14,10 @@ applied-styles = {}
 apply-style = (css, enable=true)!->
     if enable
         applied-styles[css] = $ '<style>' .html css .append-to 'head'
-    else
+    else try
         applied-styles[css].remove!
 
-$ '.dataTables_length select' .val -1 .trigger \change
+$ '.dataTables_length select' .val -1 .change!
 
 [col1, col2] = $ '#js-filters>div'
 
@@ -33,19 +33,24 @@ $ '
         apply-style '.ignored { display: none; }', checked
     .click!
 
-$ '''
-    <div class="steamy-checkbox-control">
-        Show only lowest:
-        <span class="btn btn-sm btn-social">&le;</span>
-        <span class="btn btn-sm btn-social">&lt;</span>
-    </div>
-'''
-    .append-to col1
-    .find 'span' .click !->
-        sel = if $ @ .text! == '<'
-            ':not(:has(.price-discount-major))'
-        else
-            ':has(.highest-discount)'
-        $ "table.table-sales tr.app#{sel}" .hide!
+$ '
+    <div class="fancy-select"><select>
+        <option value="all">Any discount</option>
+        <option value="le">Hide smaller discounts</option>
+        <option value="lt">Only new highest discounts</option>
+    </select></div>
+'
+    .prepend-to col1
+    .find 'select' .change !->
+        val = $ @ .val!
+        kinds =
+            le: ':has(.highest-discount)'
+            lt: ':not(:has(.price-discount-major))'
+        if val != \all
+            selector = 'table.table-sales tr.app' + kinds[val]
+            $ selector .add-class "hide-#{val}"
+        for kind of kinds
+            apply-style ".hide-#{kind} { display: none; }", val == kind
+    .val \le .change!
 
 $ '#js-merged-checkbox' .append-to col2
