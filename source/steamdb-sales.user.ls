@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add buttons to hide non-"highest recorded discount"
-# @version      3
+# @version      4
 # @include      https://steamdb.info/sales/*
 # @run-at       document-end
 # @author       Oleh Prypin
@@ -10,24 +10,27 @@
 
 $ = jQuery
 
+applied-styles = {}
+apply-style = (css, enable=true)!->
+    if enable
+        applied-styles[css] = $ '<style>' .html css .append-to 'head'
+    else
+        applied-styles[css].remove!
+
 $ '.dataTables_length select' .val -1 .trigger \change
 
-ignored-style = null
+[col1, col2] = $ '#js-filters>div'
+
 $ '
-    <div class="steamy-checkbox-control" id="js-notinterested-checkbox">
+    <div class="steamy-checkbox-control">
         <div class="steamy-checkbox"></div>
         <span class="steamy-checkbox-label">Hide "not interested"</span>
     </div>
 '
-    .insert-before '#js-merged-checkbox'
+    .append-to col1
     .click !->
-        $ this .toggle-class \checked
-        if $ this .has-class \checked
-            ignored-style := $ '<style>
-                .ignored { display: none; }
-            </style>' .append-to 'head'
-        else
-            ignored-style.remove!
+        checked = $ @ .toggle-class 'checked' .has-class 'checked'
+        apply-style '.ignored { display: none; }', checked
     .click!
 
 $ '''
@@ -37,10 +40,12 @@ $ '''
         <span class="btn btn-sm btn-social">&lt;</span>
     </div>
 '''
-    .insert-after '#js-merged-checkbox'
+    .append-to col1
     .find 'span' .click !->
-        sel = if $ this .text! == '<'
+        sel = if $ @ .text! == '<'
             ':not(:has(.price-discount-major))'
         else
             ':has(.highest-discount)'
         $ "table.table-sales tr.app#{sel}" .hide!
+
+$ '#js-merged-checkbox' .append-to col2
