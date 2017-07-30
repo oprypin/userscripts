@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Steam prices round-up
 # @description  Round up the prices on Steam $9.99 -> $10.00
-# @version      4
+# @version      5
 # @include      http://store.steampowered.com/*
 # @include      http://steamcommunity.com/*/wishlist
 # @include      https://steamcommunity.com/*/wishlist
@@ -18,7 +18,7 @@ run = !->
         .search_price, .search_discount,
         .table-sales td:nth-child(5)
     ')
-        item.inner-HTML .= replace //\b[0-9]+[.,][0-9][14689]\b//g, (s) ->
+        item.inner-HTML .= replace /\b[0-9]+[.,]([0-9][14689]\b|--)/g, (s) ->
             n = parse-float s.replace(',', '.')
             n = Math.round(n * 20) / 20  # Round to nearest 5c
             n.to-fixed(2)

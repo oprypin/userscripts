@@ -28,7 +28,7 @@ $('<div class="steamy-checkbox-control"><div class="steamy-checkbox"></div><span
   checked = $(this).toggleClass('checked').hasClass('checked');
   applyStyle('.ignored { display: none; }', checked);
 }).click();
-$('<div class="fancy-select"><select>\n    <option value="all">Any discount</option>\n    <option value="le">Hide smaller discounts</option>\n    <option value="lt">Only new highest discounts</option>\n</select></div>').prependTo(col1).find('select').change(function(){
+$('<div class="fancy-select"><select><option value="all">Any discount</option><option value="le">Hide smaller discounts</option><option value="lt">Only new highest discounts</option></select></div>').prependTo(col1).find('select').change(function(){
   var val, kinds, selector, kind;
   val = $(this).val();
   kinds = {
