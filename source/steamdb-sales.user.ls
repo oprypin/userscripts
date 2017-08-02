@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add buttons to hide non-"highest recorded discount"
-# @version      5
+# @version      6
 # @include      https://steamdb.info/sales/*
 # @run-at       document-end
 # @author       Oleh Prypin
@@ -54,3 +54,5 @@ $ '
     .val \le .change!
 
 $ '#js-merged-checkbox' .append-to col2
+
+$ '.sales-weeklong-deals' .remove-class 'sales-weeklong-deals'
