@@ -3,6 +3,7 @@
 // @description  Periodically click Refresh in Gmail
 // @version      3
 // @include      https://mail.google.com/mail/*
+// @grant        none
 // @run-at       document-end
 // @noframes
 // @author       Oleh Prypin

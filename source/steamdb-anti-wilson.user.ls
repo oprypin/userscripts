@@ -3,6 +3,7 @@
 # @description  Replace Wilson ratings with simple percentages, like on Steam store
 # @version      2
 # @include      https://steamdb.info/sales/*
+# @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

@@ -6,6 +6,7 @@
 # @include      http://steamcommunity.com/*/wishlist
 # @include      https://steamcommunity.com/*/wishlist
 # @include      https://steamdb.info/*
+# @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

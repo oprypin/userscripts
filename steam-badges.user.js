@@ -4,6 +4,7 @@
 // @version      3
 // @include      http://steamcommunity.com/id/*/badges/
 // @include      https://steamcommunity.com/id/*/badges/
+// @grant        none
 // @run-at       document-end
 // @author       Oleh Prypin
 // @namespace    http://blaxpirit.com/

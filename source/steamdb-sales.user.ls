@@ -3,6 +3,7 @@
 # @description  Add buttons to hide non-"highest recorded discount"
 # @version      6
 # @include      https://steamdb.info/sales/*
+# @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

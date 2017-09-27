@@ -6,6 +6,7 @@
 # @include      https://steamcommunity.com/stats/*/*
 # @include      http://steamcommunity.com/*/stats/*
 # @include      https://steamcommunity.com/*/stats/*
+# @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/

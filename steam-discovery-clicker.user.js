@@ -3,6 +3,7 @@
 // @description  Automatically click "next" in Steam's Discovery Queue
 // @version      2
 // @include      http://store.steampowered.com/app/*
+// @grant        none
 // @run-at       document-end
 // @author       Oleh Prypin
 // @namespace    http://blaxpirit.com/

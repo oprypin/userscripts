@@ -3,6 +3,7 @@
 // @description  Skip non-games in Steam's Discovery Queue
 // @version      3
 // @include      http://store.steampowered.com/app/*
+// @grant        none
 // @run-at       document-end
 // @author       Oleh Prypin
 // @namespace    http://blaxpirit.com/
