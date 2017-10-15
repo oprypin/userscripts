@@ -20,17 +20,17 @@ $ '.user_reviews_summary_row' .each !->
     $ @ .find '.responsive_hidden' .text (i, text)-> " of #{text |> to-num}"
 
 
-steam_reviews_label = $ '.user_reviews_summary_row .all'
-all_reviews = steam_reviews_label .parent! .clone!
-steam_reviews_label.text "Steam reviews:"
-all_reviews.insert-after steam_reviews_label.parent!
+steam-reviews-label = $ '.user_reviews_summary_row .all'
+all-reviews = steam-reviews-label .parent! .clone!
+steam-reviews-label.text "Steam reviews:"
+all-reviews.insert-after steam-reviews-label.parent!
 
 reviews = {[
     kind,
     $ '.user_reviews_filter_menu label[for="review_type_' + kind + '"] .user_reviews_count' .text! |> to-num
 ] for kind in <[positive all]>}
-all_reviews.find '.responsive_hidden' .remove!
-all_reviews.find '.game_review_summary'
+all-reviews.find '.responsive_hidden' .remove!
+all-reviews.find '.game_review_summary'
     ..text Math.round(reviews.positive / reviews.all * 100) + "%"
     ..after ($ '<span class="responsive_hidden">' .text " of #{reviews.all}")
 
