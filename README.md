@@ -26,6 +26,14 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 ![Screenshot](https://i.imgur.com/wbdr2zz.png)
 
+## Precise Steam Store ratings
+**Replace vague descriptions like "Mostly Positive" with percentages**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-ratings.user.js)**
+| [Source code](source/steam-ratings.user.ls)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-ratings.user.js)
+
+![Screenshot](https://i.imgur.com/bTNyePe.png)
 
 ## Steam achievements page improvements
 
