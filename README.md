@@ -79,13 +79,13 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 ## [SteamDB](https://steamdb.info/sales/) sales page improvements
 
-**Add buttons to hide non-"highest recorded discount"**
+**Add controls to hide non-"highest recorded discount"**
 
 **[Install](https://github.com/oprypin/userscripts/raw/master/steamdb-sales.user.js)**
 | [Source code](source/steamdb-sales.user.ls)
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/steamdb-sales.user.js)
 
-![Screenshot](https://i.imgur.com/VcrpJfe.png)
+![Screenshot](https://i.imgur.com/uH2Xo6a.png)
 
 
 ## [SteamDB](https://steamdb.info/sales/) Anti-Wilson
