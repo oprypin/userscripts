@@ -27,6 +27,7 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 ![Screenshot](https://i.imgur.com/wbdr2zz.png)
 
 ## Precise Steam Store ratings
+
 **Replace vague descriptions like "Mostly Positive" with percentages**
 
 **[Install](https://github.com/oprypin/userscripts/raw/master/steam-ratings.user.js)**
@@ -86,17 +87,6 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/steamdb-sales.user.js)
 
 ![Screenshot](https://i.imgur.com/uH2Xo6a.png)
-
-
-## [SteamDB](https://steamdb.info/sales/) Anti-Wilson
-
-**Replace Wilson ratings with simple percentages, like on Steam store**
-
-**[Install](https://github.com/oprypin/userscripts/raw/master/steamdb-anti-wilson.user.js)**
-| [Source code](source/steamdb-anti-wilson.user.ls)
-| [Changelog](https://github.com/oprypin/userscripts/commits/master/steamdb-anti-wilson.user.js)
-
-![Screenshot](https://i.imgur.com/Z9ag3Qn.png)
 
 
 ## Gmail Refresher
