@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SteamDB sales page improvements
 // @description  Add controls to hide non-"highest recorded discount"
-// @version      7
+// @version      8
 // @include      https://steamdb.info/sales/*
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -17,13 +17,13 @@ $('.dataTables_length select').val(-1).change();
 x$ = $('#js-wishlisted-only, #js-hide-owned-games');
 x$.filter('.checked').click();
 x$.hide();
-for (i$ = 0, len$ = (ref$ = ['weeklong-deals', 'daily-deal', 'special-promotion', 'play-for-free', 'todays-highlighted-deals', 'more-highlighted-deals']).length; i$ < len$; ++i$) {
+for (i$ = 0, len$ = (ref$ = ['daily-deal', 'special-promotion', 'play-for-free', 'todays-highlighted-deals']).length; i$ < len$; ++i$) {
   cls = ref$[i$];
   $('td.sales-' + cls).removeClass('sales-' + cls);
 }
 for (i$ = 0, len$ = (ref$ = ['weeklong-deals', 'more-highlighted-deals']).length; i$ < len$; ++i$) {
   cls = ref$[i$];
-  $('td .sales-' + cls).hide();
+  $('.sales-' + cls).removeClass('sales-' + cls);
 }
 $('<div id="visibility-filter" class="fancy-price"><table><tr><th>Display games:</th><td>Wishlist</td><th>Default</th><td>Owned</td></tr><tr><td>Any discount</td><td><input type="radio" name="filter-wish" value="all"></td><td><input type="radio" name="filter-all" value="all"></td><td><input type="radio" name="filter-own" value="all"></td></tr><tr><td>Hide smaller discounts</td><td><input type="radio" name="filter-wish" value="le" checked></td><td><input type="radio" name="filter-all" value="le"></td><td><input type="radio" name="filter-own" value="le"></td></tr><tr><td>Only new highest discounts</td><td><input type="radio" name="filter-wish" value="lt"></td><td><input type="radio" name="filter-all" value="lt" checked></td><td><input type="radio" name="filter-own" value="lt"></td></tr><tr><td>Hide</td><td><input type="radio" name="filter-wish" value="none"></td><td><input type="radio" name="filter-all" value="none"></td><td><input type="radio" name="filter-own" value="none" checked></td></tr></table></div>').insertAfter('#js-filters');
 function check(row, cond){
@@ -62,13 +62,7 @@ for (kind in filters) {
   } catch (e$) {}
 }
 function updateFilters(){
-  var checked, res$, kind, ref$, filter;
-  res$ = {};
-  for (kind in ref$ = filters) {
-    filter = ref$[kind];
-    res$[kind] = filter;
-  }
-  checked = res$;
+  var kind;
   if (byIndex('wish') > byIndex('all')) {
     byIndex('wish', byIndex('all'));
     return;
@@ -90,8 +84,11 @@ function updateFilters(){
     } catch (e$) {}
   }
 }
-updateFilters();
 $('#visibility-filter input').change(updateFilters);
+updateFilters();
+setTimeout(updateFilters, 500);
+setTimeout(updateFilters, 1500);
+setTimeout(updateFilters, 3000);
 $('h1').remove();
 function applyStyle(css){
   $('<style>').html(css).appendTo('head');

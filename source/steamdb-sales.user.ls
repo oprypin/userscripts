@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add controls to hide non-"highest recorded discount"
-# @version      7
+# @version      8
 # @include      https://steamdb.info/sales/*
 # @grant        GM_getValue
 # @grant        GM_setValue
@@ -25,10 +25,10 @@ $('#js-wishlisted-only, #js-hide-owned-games')
     ..filter('.checked').click!
     ..hide!
 
-for cls in <[weeklong-deals daily-deal special-promotion play-for-free todays-highlighted-deals more-highlighted-deals]>
+for cls in <[daily-deal special-promotion play-for-free todays-highlighted-deals]>
     $('td.sales-' + cls).remove-class('sales-' + cls)
 for cls in <[weeklong-deals more-highlighted-deals]>
-    $('td .sales-' + cls).hide!
+    $('.sales-' + cls).remove-class('sales-' + cls)
 
 $('
     <div id="visibility-filter" class="fancy-price">
@@ -80,8 +80,6 @@ for kind of filters
     try by-val(kind, GM_get-value(kind))
 
 !function update-filters
-    checked = {[kind, filter] for kind, filter of filters}
-
     if by-index('wish') > by-index('all')
         by-index('wish', by-index('all'))
         return
@@ -99,8 +97,11 @@ for kind of filters
     for kind of filters
         try GM_set-value(kind, by-val(kind))
 
-update-filters!
 $('#visibility-filter input').change(update-filters)
+update-filters!
+set-timeout(update-filters, 500)
+set-timeout(update-filters, 1500)
+set-timeout(update-filters, 3000)
 
 $('h1').remove!
 
