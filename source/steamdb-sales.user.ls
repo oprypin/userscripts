@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add controls to hide non-"highest recorded discount"
-# @version      8
+# @version      9
 # @include      https://steamdb.info/sales/*
 # @grant        GM_getValue
 # @grant        GM_setValue
@@ -63,7 +63,7 @@ function check(row, cond)
     switch cond
     | 'all' => true
     | 'le' => row.find('.highest-discount').length == 0
-    | 'lt' => row.find('.price-discount-major').length > 0
+    | 'lt' => row.find('.highest-discount-major').length > 0
     | 'none' => false
 
 filters = {[kind, $('#visibility-filter input[name="filter-' + kind + '"]')] for kind in <[wish all own]>}
