@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SteamDB sales page improvements
 // @description  Add controls to hide non-"highest recorded discount"
-// @version      9
+// @version      10
 // @include      https://steamdb.info/sales/*
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -14,7 +14,7 @@ var $, x$, i$, ref$, len$, cls, filters, res$, kind;
 $ = jQuery;
 applyStyle('#visibility-filter { text-align: center; margin-right: 20px; margin-top: 25px; margin-left: 70px; float: right; }#visibility-filter table { background-color: transparent; margin: 0 auto; }#visibility-filter tr :first-child { text-align: right; }#visibility-filter input { width: 70px; }.visibility-filter-hidden { display: none; }');
 $('.dataTables_length select').val(-1).change();
-x$ = $('#js-wishlisted-only, #js-hide-owned-games');
+x$ = $('#js-wishlisted-only, #js-hide-owned-games, #js-highest-new-only');
 x$.filter('.checked').click();
 x$.hide();
 for (i$ = 0, len$ = (ref$ = ['daily-deal', 'special-promotion', 'play-for-free', 'todays-highlighted-deals']).length; i$ < len$; ++i$) {

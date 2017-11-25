@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add controls to hide non-"highest recorded discount"
-# @version      9
+# @version      10
 # @include      https://steamdb.info/sales/*
 # @grant        GM_getValue
 # @grant        GM_setValue
@@ -21,7 +21,7 @@ apply-style '
 '
 
 $('.dataTables_length select').val(-1).change!
-$('#js-wishlisted-only, #js-hide-owned-games')
+$('#js-wishlisted-only, #js-hide-owned-games, #js-highest-new-only')
     ..filter('.checked').click!
     ..hide!
 
