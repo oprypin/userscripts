@@ -6,6 +6,7 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 / [Chrome](https://tampermonkey.net/)
 / [Other](https://greasyfork.org/help/installing-user-scripts)
 
+
 ## Hexcells levels clipper
 
 **Preview and copy [Hexcells levels](https://www.reddit.com/r/hexcellslevels/) to clipboard**
@@ -15,6 +16,16 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/hexcellslevels-clipper.user.js)
 
 ![Screenshot](https://i.imgur.com/Y84XAxw.png)
+
+
+## Steam currency converter
+
+**Convert the prices on [Steam](http://store.steampowered.com/) to USD**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/steam-currency.user.js)**
+| [Source code](source/steam-currency.user.ls)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-currency.user.js)
+
 
 ## Steam prices round-up
 
@@ -26,6 +37,7 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 
 ![Screenshot](https://i.imgur.com/wbdr2zz.png)
 
+
 ## Precise Steam Store ratings
 
 **Replace vague descriptions like "Mostly Positive" with percentages**
@@ -35,6 +47,7 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/steam-ratings.user.js)
 
 ![Screenshot](https://i.imgur.com/bTNyePe.png)
+
 
 ## Steam achievements page improvements
 
