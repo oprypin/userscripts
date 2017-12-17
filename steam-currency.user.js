@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam currency converter
 // @description  Convert the prices on Steam to USD
-// @version      1
+// @version      2
 // @include      http://store.steampowered.com/*
 // @include      http://steamcommunity.com/*/wishlist
 // @include      https://steamcommunity.com/*/wishlist
@@ -39,10 +39,7 @@ parseAmount = function(it){
 };
 for (i$ = 0, len$ = currencies.length; i$ < len$; ++i$) {
   currency = currencies[i$];
-  amountRegex = "[0-9 ]+";
-  if (currency.decimal) {
-    amountRegex += "(?:[.,](?:[0-9]{2}|--))?";
-  }
+  amountRegex = "[0-9 ]+(?:[.,](?:[0-9]{2}|--))?";
   curRegex = regexEscape(currency.pattern.replace('{}', '').trim());
   currency.regex = new RegExp(curRegex + " ?(" + amountRegex + ")|(" + amountRegex + ") ?" + curRegex);
 }

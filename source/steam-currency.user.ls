@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Steam currency converter
 # @description  Convert the prices on Steam to USD
-# @version      1
+# @version      2
 # @include      http://store.steampowered.com/*
 # @include      http://steamcommunity.com/*/wishlist
 # @include      https://steamcommunity.com/*/wishlist
@@ -66,8 +66,7 @@ regex-escape = (.replace /[^\w\s]/g, '\\$&')
 parse-amount = (.replace(' ', '').replace(',', '.') |> parse-float)
 
 for currency in currencies
-    amount-regex = "[0-9 ]+"
-    amount-regex += "(?:[.,](?:[0-9]{2}|--))?" if currency.decimal
+    amount-regex = "[0-9 ]+(?:[.,](?:[0-9]{2}|--))?"
     cur-regex = regex-escape currency.pattern.replace('{}', '').trim!
     currency.regex = new RegExp("#{cur-regex} ?(#{amount-regex})|(#{amount-regex}) ?#{cur-regex}")
 
