@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Steam currency converter
 # @description  Convert the prices on Steam to USD
-# @version      2
+# @version      3
 # @include      http://store.steampowered.com/*
 # @include      http://steamcommunity.com/*/wishlist
 # @include      https://steamcommunity.com/*/wishlist
@@ -59,8 +59,6 @@ currencies = [{id: cur.0, pattern: cur.1, decimal: cur.2} for cur in [
 ]]
 to-currency = currencies.find((.id == 'USD'))
 
-$ = jQuery
-
 regex-escape = (.replace /[^\w\s]/g, '\\$&')
 
 parse-amount = (.replace(' ', '').replace(',', '.') |> parse-float)
@@ -74,7 +72,7 @@ price-containers = -> document.query-selector-all '
     #header_wallet_balance,
     .price:not(#cart_price_total), .discount_price,
     .discount_original_price, .discount_final_price,
-    .search_price, .search_discount,
+    .game_area_dlc_price, .search_price, .search_discount,
     .table-sales td:nth-child(5)
 '
 
