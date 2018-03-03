@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Discovery Queue Anti-VN
+// @name         Discovery Queue Anti-Trash
 // @description  Skip non-games in Steam's Discovery Queue
-// @version      4
+// @version      5
 // @include      http://store.steampowered.com/app/*
 // @grant        none
 // @run-at       document-end
@@ -22,7 +22,10 @@ ignore = function(){
       return true;
     }
   }
-  if ($.trim($('#developers_list').text()) === "Choice of Games") {
+  if ((ref$ = $.trim($('#developers_list').text())) === "Choice of Games" || ref$ === "Hosted Games" || ref$ === "ALEKSANDER CHEPAIKIN") {
+    return true;
+  }
+  if (((ref$ = $('.communitylink_achivement_plusmore').text().match(/[0-9]+/)) != null ? ref$[0] : void 8) > 500) {
     return true;
   }
 }();

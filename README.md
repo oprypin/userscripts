@@ -71,7 +71,7 @@ Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_
 ![Screenshot](https://i.imgur.com/dpom1ub.png)
 
 
-## Discovery Queue Anti-VN
+## Discovery Queue Anti-Trash
 
 **Skip non-games in Steam's [Discovery Queue](http://store.steampowered.com/explore/)**
 

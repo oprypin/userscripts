@@ -1,7 +1,7 @@
 # ==UserScript==
-# @name         Discovery Queue Anti-VN
+# @name         Discovery Queue Anti-Trash
 # @description  Skip non-games in Steam's Discovery Queue
-# @version      4
+# @version      5
 # @include      http://store.steampowered.com/app/*
 # @grant        none
 # @run-at       document-end
@@ -19,8 +19,13 @@ ignore = do ->
             "Choose Your Own Adventure", "Visual Novel", "Text-Based", "FMV"
         ]
             return true
-    if $.trim($ '#developers_list' .text!) == "Choice of Games"
+    if $.trim($ '#developers_list' .text!) in [
+        "Choice of Games", "Hosted Games", "ALEKSANDER CHEPAIKIN"
+    ]
         return true
+    if $ '.communitylink_achivement_plusmore' .text! .match /[0-9]+/ ?.0 > 500
+        return true
+
 
 if ignore
     id = window.location.href.match /[0-9]+/ .0
