@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Precise Steam Store ratings
 // @description  Replace vague descriptions like "Mostly Positive" with percentages
-// @version      1
+// @version      2
 // @include      http://store.steampowered.com/app/*
 // @grant        none
 // @run-at       document-end
@@ -17,7 +17,7 @@ toNum = function(it){
 $('.user_reviews_summary_row').each(function(){
   $(this).find('.game_review_summary').text((function(){
     try {
-      return $(this).data('store-tooltip').match(/\d+%/)[0];
+      return $(this).data('tooltip-text').match(/\d+%/)[0];
     } catch (e$) {}
   }.call(this)));
   $(this).find('.responsive_hidden').text(function(i, text){

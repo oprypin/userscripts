@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Precise Steam Store ratings
 # @description  Replace vague descriptions like "Mostly Positive" with percentages
-# @version      1
+# @version      2
 # @include      http://store.steampowered.com/app/*
 # @grant        none
 # @run-at       document-end
@@ -15,7 +15,7 @@ to-num = (.replace /\D/g, '')
 
 $ '.user_reviews_summary_row' .each !->
     $ @ .find '.game_review_summary' .text do
-        try $ @ .data 'store-tooltip' .match /\d+%/ .0
+        try $ @ .data 'tooltip-text' .match /\d+%/ .0
 
     $ @ .find '.responsive_hidden' .text (i, text)-> " of #{text |> to-num}"
 
