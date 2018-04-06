@@ -1,8 +1,8 @@
 # ==UserScript==
 # @name         Precise Steam Store ratings
 # @description  Replace vague descriptions like "Mostly Positive" with percentages
-# @version      2
-# @include      http://store.steampowered.com/app/*
+# @version      3
+# @include      *://store.steampowered.com/app/*
 # @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin

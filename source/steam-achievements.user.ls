@@ -2,10 +2,8 @@
 # @name         Steam achievements page improvements
 # @description  Show descriptions of hidden achievements for games you own
 # @version      3
-# @include      http://steamcommunity.com/stats/*/*
-# @include      https://steamcommunity.com/stats/*/*
-# @include      http://steamcommunity.com/*/stats/*
-# @include      https://steamcommunity.com/*/stats/*
+# @include      *://steamcommunity.com/stats/*/*
+# @include      *://steamcommunity.com/*/stats/*
 # @grant        none
 # @run-at       document-end
 # @author       Oleh Prypin

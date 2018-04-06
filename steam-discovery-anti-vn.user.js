@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Discovery Queue Anti-Trash
 // @description  Skip non-games in Steam's Discovery Queue
-// @version      5
-// @include      http://store.steampowered.com/app/*
+// @version      6
+// @include      *://store.steampowered.com/app/*
 // @grant        none
 // @run-at       document-end
 // @author       Oleh Prypin

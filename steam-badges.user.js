@@ -2,8 +2,7 @@
 // @name         Steam badges page improvements
 // @description  Display showcase links on Steam badges page
 // @version      3
-// @include      http://steamcommunity.com/id/*/badges/
-// @include      https://steamcommunity.com/id/*/badges/
+// @include      *://steamcommunity.com/id/*/badges/
 // @grant        none
 // @run-at       document-end
 // @author       Oleh Prypin

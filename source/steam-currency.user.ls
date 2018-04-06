@@ -1,10 +1,9 @@
 # ==UserScript==
 # @name         Steam currency converter
 # @description  Convert the prices on Steam to USD
-# @version      3
-# @include      http://store.steampowered.com/*
-# @include      http://steamcommunity.com/*/wishlist
-# @include      https://steamcommunity.com/*/wishlist
+# @version      4
+# @include      *://store.steampowered.com/*
+# @include      *://steamcommunity.com/*/wishlist
 # @include      https://steamdb.info/*
 # @connect      currencyconverterapi.com
 # @grant        GM_getValue
