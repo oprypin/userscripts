@@ -1,62 +1,72 @@
 # ==UserScript==
 # @name         Hexcells levels clipper
 # @description  Copy Hexcells levels to clipboard
-# @version      2
-# @include      https://www.reddit.com/r/hexcellslevels/*
+# @version      3
+# @include      https://*.reddit.com/r/hexcellslevels/*
 # @grant        GM_setClipboard
-# @require      https://code.jquery.com/jquery-3.1.1.min.js
-# @run-at       document-end
+# @require      https://code.jquery.com/jquery-3.3.1.min.js
+# @run-at       document-start
 # @author       Oleh Prypin
 # @namespace    http://blaxpirit.com/
 # ==/UserScript==
 
 $ = jQuery
 
-$ 'pre' .parent! .each !->
-    parent = $ this
-    levels = []
-    parent .children 'pre' .each !->
-        block = $ this
-        container = $ '<div>'
+button-style =
+    background-color: 'rgb(240, 240, 240)'
+    color: 'rgb(0, 0, 0)'
+    border: '0'
+    border-radius: '5px'
+    padding: '4px'
 
-        block.text!.replace //
-            ^Hexcells\ level\ v1\n
-            (.+)\n (.*)\n (.*\n.*)\n
-            ((([.oOxX\\|/][.+cn])+\n?)+)
-        //gm, (level, title, author, desc, field)!->
-            level .= trim!
-            desc .= trim!
-            field .= trim!
+!function run
+    $ 'pre' .parent! .each !->
+        levels = []
+        $ this .children 'pre' .each !->
+            block = $ this
+            container = $ '<div>'
 
-            container.append do
-                chk = $ '<input type="checkbox" checked style="vertical-align: top; float: left">'
-                $ '<div title="Click to copy this level" style="background-color: rgb(240, 240, 240); text-align: center; border-radius: 5px; padding: 3px; display: inline-block; cursor: pointer">'
-                    .click !-> copy level, @
-                    .append do
-                        $ '<div style="margin-bottom: 3px">' .append do
-                            $ '<span style="font-weight: bold">' .text(title)
-                            $ '<span style="font-size: 90%">' .text(" by #{author}")
-                        try
-                            render-level(field)
-                        catch
-                            $ '<span style="color: red">' .text(e)
-                        $ '<div style="white-space: pre-wrap; font-size: 90%">' .text(desc)
-            levels.push [chk, level]
+            block.text!.replace //
+                ^Hexcells\ level\ v1\n
+                (.+)\n (.*)\n (.*\n.*)\n
+                ((([.oOxX\\|/][.+cn])+\n?)+)
+            //gm, (level, title, author, desc, field)!->
+                level .= trim!
+                desc .= trim!
+                field .= trim!
 
-        if container.is ':parent'
-            block.replace-with container
+                container.append do
+                    chk = $ '<input type="checkbox" checked style="vertical-align: top; float: left">'
+                    $ '<button title="Click to copy this level">' .css button-style
+                        .click !-> copy level, @
+                        .append do
+                            $ '<div style="margin-bottom: 3px">' .append do
+                                $ '<span style="font-weight: bold">' .text(title)
+                                $ '<span style="font-size: 90%">' .text(" by #{author}")
+                            try
+                                render-level(field)
+                            catch
+                                $ '<span style="color: red">' .text(e)
+                            $ '<div style="white-space: pre-wrap; font-size: 90%">' .text(desc)
+                levels.push [chk, level]
 
-    if levels.length > 1
-        $ '<input type="button" value="Copy selected levels" style="float: right; font-size: 150%">'
-            .insert-before levels[0].0.parent!
-            .click do
-                levels |> (levels)-> !->
-                    to-copy = [level for [chk, level] in levels when chk.prop 'checked']
-                    copy to-copy * '\n\n', @
-    else
-        for [chk, level] in levels
-            chk.remove!
+            if container.is ':parent'
+                block.replace-with container
 
+        if levels.length > 1
+            $ '<button style="float: right; font-size: 150%">Copy selected levels</button>'
+                .css button-style
+                .insert-before levels[0].0.parent!
+                .click do
+                    levels |> (levels)-> !->
+                        to-copy = [level for [chk, level] in levels when chk.prop 'checked']
+                        copy to-copy * '\n\n', @
+        else
+            for [chk, level] in levels
+                chk.remove!
+
+$ run
+window.onload = run
 
 copying = false
 function copy(s, el)
@@ -100,8 +110,8 @@ function render-level(lvl)
     border = radius/5
     spacing = radius/8
 
-    canvas = $('<canvas>')[0]
-    c = canvas .get-context \2d
+    canvas = $('<canvas>').0
+    c = canvas .get-context '2d'
 
     field = for line in lvl.split('\n')
         line .= trim!
