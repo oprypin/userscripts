@@ -2,9 +2,12 @@
 
 #### A collection of JavaScript browser extensions
 
-Install in [Firefox](https://wiki.greasespot.net/Greasemonkey_Manual:Installing_Scripts)
-/ [Chrome](https://tampermonkey.net/)
-/ [Other](https://greasyfork.org/help/installing-user-scripts)
+To use these, first you need to install a *userscript manager*.
+
+* [Violentmonkey](https://violentmonkey.github.io/about/) is recommended.
+* Greasemonkey is **unsupported**.
+
+Then, click one of the "install" links below.
 
 
 ## Hexcells levels clipper
