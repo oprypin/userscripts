@@ -21,6 +21,17 @@ Then, click one of the "install" links below.
 ![Screenshot](https://i.imgur.com/Y84XAxw.png)
 
 
+## IRC-to-Gitter bridge bot integration
+
+**Substitute nicknames in messages written by @FromIRC (bridge bot)**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/gitter-fromirc.user.js)**
+| [Source code](source/gitter-fromirc.user.ls)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/gitter-fromirc.user.js)
+
+![Screenshot](https://i.imgur.com/ir27Hd6.gif)
+
+
 ## Steam currency converter
 
 **Convert the prices on [Steam](http://store.steampowered.com/) to USD**
