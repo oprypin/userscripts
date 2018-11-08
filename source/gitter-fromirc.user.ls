@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         IRC-to-Gitter bridge bot integration
 # @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-# @version      1
+# @version      2
 # @include      https://gitter.im/*
 # @grant        none
 # @require      https://code.jquery.com/jquery-3.3.1.min.js
@@ -32,7 +32,6 @@ update = !->
 
             aside = one $(@).find('.chat-item__aside')
             if aside || nickname != prev-nickname
-                console.log 'a'
                 $(@).remove-class 'burstContinued' .add-class 'burstStart'
 
                 if aside
