@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         SteamDB sales page improvements
 # @description  Add controls to hide non-"highest recorded discount"
-# @version      10
+# @version      11
 # @include      https://steamdb.info/sales/*
 # @grant        GM_getValue
 # @grant        GM_setValue
@@ -13,11 +13,14 @@
 $ = jQuery
 
 apply-style '
-    #visibility-filter { text-align: center; margin-right: 20px; margin-top: 25px; margin-left: 70px; float: right; }
+    #visibility-filter { text-align: center; margin-right: 20px; float: left; }
     #visibility-filter table { background-color: transparent; margin: 0 auto; }
     #visibility-filter tr :first-child { text-align: right; }
     #visibility-filter input { width: 70px; }
     .visibility-filter-hidden { display: none; }
+    .header-sales-filters, .header-sales-info, .header-sales-filters>* { width: auto !important; height: auto !important; }
+    .header-sales-info * { z-index: 1; }
+    .tag-exclusion-hint { display: none; }
 '
 
 $('.dataTables_length select').val(-1).change!
@@ -57,7 +60,8 @@ $('
         </tr></table>
     </div>
 ')
-    .insert-after('#js-filters')
+    .prepend-to('#js-filters')
+$('#js-filter-submit').append-to('.span-sale-filter:first').text('Reload')
 
 function check(row, cond)
     switch cond
