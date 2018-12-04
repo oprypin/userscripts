@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Steam currency converter
 # @description  Convert the prices on Steam to USD
-# @version      4
+# @version      5
 # @include      *://store.steampowered.com/*
 # @include      *://steamcommunity.com/*/wishlist
 # @include      https://steamdb.info/*
@@ -72,7 +72,7 @@ price-containers = -> document.query-selector-all '
     .price:not(#cart_price_total), .discount_price,
     .discount_original_price, .discount_final_price,
     .game_area_dlc_price, .search_price, .search_discount,
-    .table-sales td:nth-child(5)
+    .table-sales td:nth-child(5), .steamdb_prices
 '
 
 get-rate = (from, to, callback)!->

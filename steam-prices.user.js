@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam prices round-up
 // @description  Round up the prices on Steam $9.99 -> $10.00
-// @version      7
+// @version      8
 // @include      *://store.steampowered.com/*
 // @include      *://steamcommunity.com/*/wishlist
 // @include      https://steamdb.info/*
@@ -14,7 +14,7 @@
 var run;
 run = function(){
   var i$, ref$, len$, item;
-  for (i$ = 0, len$ = (ref$ = document.querySelectorAll('.price:not(#cart_price_total), .discount_price,.discount_original_price, .discount_final_price,.game_area_dlc_price, .search_price, .search_discount,.table-sales td:nth-child(5)')).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = document.querySelectorAll('.price:not(#cart_price_total), .discount_price,.discount_original_price, .discount_final_price,.game_area_dlc_price, .search_price, .search_discount,.table-sales td:nth-child(5), .steamdb_prices')).length; i$ < len$; ++i$) {
     item = ref$[i$];
     item.innerHTML = item.innerHTML.replace(/[0-9 ]+[.,]([0-9][14689]|--)/g, fn$);
   }
