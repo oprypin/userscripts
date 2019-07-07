@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Discovery Queue Anti-Trash
 // @description  Skip non-games in Steam's Discovery Queue
-// @version      6
+// @version      7
 // @include      *://store.steampowered.com/app/*
 // @grant        none
 // @run-at       document-end
@@ -22,7 +22,10 @@ ignore = function(){
       return true;
     }
   }
-  if ((ref$ = $.trim($('#developers_list').text())) === "Choice of Games" || ref$ === "Hosted Games" || ref$ === "ALEKSANDER CHEPAIKIN") {
+  if ((ref$ = $.trim($('#developers_list').text())) === "Choice of Games" || ref$ === "Hosted Games" || ref$ === "ALEKSANDER CHEPAIKIN" || ref$ === "Sly" || ref$ === "GGG Games" || ref$ === "Kedronic UAB" || ref$ === "Cool Girls Games" || ref$ === "Team Spikkeee") {
+    return true;
+  }
+  if ($('#purchase_note').text().includes("English language not supported")) {
     return true;
   }
   if (((ref$ = $('.communitylink_achivement_plusmore').text().match(/[0-9]+/)) != null ? ref$[0] : void 8) > 500) {

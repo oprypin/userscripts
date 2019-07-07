@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Discovery Queue Anti-Trash
 # @description  Skip non-games in Steam's Discovery Queue
-# @version      6
+# @version      7
 # @include      *://store.steampowered.com/app/*
 # @grant        none
 # @run-at       document-end
@@ -20,8 +20,11 @@ ignore = do ->
         ]
             return true
     if $.trim($ '#developers_list' .text!) in [
-        "Choice of Games", "Hosted Games", "ALEKSANDER CHEPAIKIN"
+        "Choice of Games", "Hosted Games", "ALEKSANDER CHEPAIKIN", "Sly", "GGG Games",
+        "Kedronic UAB", "Cool Girls Games", "Team Spikkeee"
     ]
+        return true
+    if $('#purchase_note').text!.includes "English language not supported"
         return true
     if $ '.communitylink_achivement_plusmore' .text! .match /[0-9]+/ ?.0 > 500
         return true
