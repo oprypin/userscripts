@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         Hexcells levels clipper
 # @description  Copy Hexcells levels to clipboard
-# @version      3
+# @version      4
 # @include      https://*.reddit.com/r/hexcellslevels/*
 # @grant        GM_setClipboard
 # @require      https://code.jquery.com/jquery-3.3.1.min.js
@@ -110,9 +110,6 @@ function render-level(lvl)
     border = radius/5
     spacing = radius/8
 
-    canvas = $('<canvas>').0
-    c = canvas .get-context '2d'
-
     field = for line in lvl.split('\n')
         line .= trim!
         for x from 0 til line.length by 2
@@ -129,8 +126,16 @@ function render-level(lvl)
     min-y = Math.min.apply(null, ys)
     max-y = Math.max.apply(null, ys)
 
-    canvas.width = (max-x - min-x + 1.3)*2 * (radius + spacing/2) * 0.75
-    canvas.height = (max-y - min-y + 2) * (radius + spacing/2) * 0.866
+    w = (max-x - min-x + 1.3)*2 * (radius + spacing/2) * 0.75
+    h = (max-y - min-y + 2) * (radius + spacing/2) * 0.866
+
+    canvas = $ '<canvas>' .css(width: w, height: h) .0
+
+    dpr = window.device-pixel-ratio ? 1
+    canvas.width = w * dpr
+    canvas.height = h * dpr
+    c = canvas.get-context '2d'
+    c.scale dpr, dpr
 
     c.text-align = 'center'
     c.text-baseline = 'middle'

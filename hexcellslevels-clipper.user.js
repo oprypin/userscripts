@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Hexcells levels clipper
 // @description  Copy Hexcells levels to clipboard
-// @version      3
+// @version      4
 // @include      https://*.reddit.com/r/hexcellslevels/*
 // @grant        GM_setClipboard
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
@@ -91,7 +91,7 @@ function copy(s, el){
   }, 400);
 }
 function renderLevel(lvl){
-  var flowerDeltas, neighborDeltas, lineDeltas, cellColor, borderColor, textColor, radius, border, spacing, canvas, c, field, res$, i$, ref$, len$, line, lresult$, j$, to$, x, xs, ys, y, len1$, kind, info, minX, maxX, minY, maxY, hex, px, py, neighbors, k$, len2$, ref1$, dx, dy;
+  var flowerDeltas, neighborDeltas, lineDeltas, cellColor, borderColor, textColor, radius, border, spacing, field, res$, i$, ref$, len$, line, lresult$, j$, to$, x, xs, ys, y, len1$, kind, info, minX, maxX, minY, maxY, w, h, canvas, dpr, c, hex, px, py, neighbors, k$, len2$, ref1$, dx, dy;
   flowerDeltas = [[0, -2], [0, -4], [1, -3], [1, -1], [2, -2], [2, 0], [1, 1], [2, 2], [1, 3], [0, 2], [0, 4], [-1, 3], [-1, 1], [-2, 2], [-2, 0], [-1, -1], [-2, -2], [-1, -3]];
   neighborDeltas = [flowerDeltas[0], flowerDeltas[3], flowerDeltas[6], flowerDeltas[9], flowerDeltas[12], flowerDeltas[15]];
   lineDeltas = {
@@ -133,8 +133,6 @@ function renderLevel(lvl){
   radius = 15;
   border = radius / 5;
   spacing = radius / 8;
-  canvas = $('<canvas>')[0];
-  c = canvas.getContext('2d');
   res$ = [];
   for (i$ = 0, len$ = (ref$ = lvl.split('\n')).length; i$ < len$; ++i$) {
     line = ref$[i$];
@@ -165,8 +163,17 @@ function renderLevel(lvl){
   maxX = Math.max.apply(null, xs);
   minY = Math.min.apply(null, ys);
   maxY = Math.max.apply(null, ys);
-  canvas.width = (maxX - minX + 1.3) * 2 * (radius + spacing / 2) * 0.75;
-  canvas.height = (maxY - minY + 2) * (radius + spacing / 2) * 0.866;
+  w = (maxX - minX + 1.3) * 2 * (radius + spacing / 2) * 0.75;
+  h = (maxY - minY + 2) * (radius + spacing / 2) * 0.866;
+  canvas = $('<canvas>').css({
+    width: w,
+    height: h
+  })[0];
+  dpr = (ref$ = window.devicePixelRatio) != null ? ref$ : 1;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  c = canvas.getContext('2d');
+  c.scale(dpr, dpr);
   c.textAlign = 'center';
   c.textBaseline = 'middle';
   c.font = "bold " + radius + "px sans-serif";
