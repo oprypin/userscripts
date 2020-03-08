@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IRC-to-Gitter bridge bot integration
 // @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-// @version      2
+// @version      3
 // @include      https://gitter.im/*
 // @grant        none
 // @require      https://code.jquery.com/jquery-3.3.1.min.js
@@ -46,7 +46,8 @@ update = function(){
           $(this).find('.chat-item__container').prepend(aside);
         }
         aside.find('img').attr({
-          src: "https://secure.gravatar.com/avatar/" + md5(nickname) + "?s=30&d=identicon"
+          src: "https://secure.gravatar.com/avatar/" + md5(nickname) + "?s=30&d=identicon",
+          srcset: null
         });
         if (details = one($(this).find('.chat-item__details'))) {
           someDetails = details;
