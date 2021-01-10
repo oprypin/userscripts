@@ -4,6 +4,7 @@
 !README*
 !LICENSE*
 !*.md
+!/Makefile
 !/source/
 !/source/*.ls
 !/source/generate.sh
