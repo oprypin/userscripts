@@ -1,12 +1,13 @@
 # ==UserScript==
 # @name         IRC-to-Gitter bridge bot integration
 # @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-# @version      3
+# @version      4
 # @include      https://gitter.im/*
+# @include      https://app.element.io/*
 # @grant        none
-# @require      https://code.jquery.com/jquery-3.3.1.min.js
-# @require      https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js
-# @run-at       document-end
+# @require      https://code.jquery.com/jquery-3.5.1.min.js
+# @require      https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js
+# @run-at       document-start
 # @author       Oleh Prypin
 # @namespace    http://pryp.in/
 # ==/UserScript==
@@ -14,53 +15,74 @@
 $ = jQuery
 one = -> it if it.length
 
+matrix = window.location.href.starts-with 'https://app.element.io/'
+sel = (g, m)-> if matrix then m else g
+
 update = !->
     replacing = false
     prev-nickname = null
-    some-aside = some-details = null
+    some-avatar = some-profile = null
 
-    $('.chat-item').each !->
-        if one $(@).find('.chat-item__username')
-            replacing := that.text() == '@FromIRC'
+    $(sel '.chat-item', '.mx_RoomView_MessageList>li').each !->
+        if one $(@).find(sel '.chat-item__username', '.mx_SenderProfile_name')
+            replacing := that.text() == sel '@FromIRC', 'FromIRC (From IRC (bridge bot))'
         if replacing
-            $(@).find('.chat-item__text strong')
+            $(@).find(sel '.chat-item__text strong', '.mx_EventTile_content strong').first()
                 nickname = ..text()
                 ..hide()
             if nickname.includes '* '
                 $(@).add-class 'chat-item__status'
                 nickname .= replace('* ', '')
 
-            aside = one $(@).find('.chat-item__aside')
-            if aside || nickname != prev-nickname
-                $(@).remove-class 'burstContinued' .add-class 'burstStart'
+            avatar = one $(@).find(sel '.chat-item__aside', '.mx_EventTile_avatar')
+            if avatar || nickname != prev-nickname
+                $(@).remove-class(sel 'burstContinued', 'mx_EventTile_continuation').add-class(sel 'burstStart', null)
 
-                if aside
-                    some-aside := aside
+                if avatar
+                    some-avatar := avatar
                 else
-                    aside = some-aside.clone()
-                    $(@).find('.chat-item__container').prepend aside
-                aside.find('img').attr do
+                    avatar = some-avatar.clone()
+                    $(@).find('.chat-item__container').prepend avatar
+                avatar.find('img').attr do
                     src: "https://secure.gravatar.com/avatar/#{md5(nickname)}?s=30&d=identicon"
                     srcset: null
 
-                if details = one $(@).find('.chat-item__details')
-                    some-details := details
+                if profile = one $(@).find(sel '.chat-item__details', '.mx_SenderProfile')
+                    some-profile := profile
                 else
-                    details = some-details.clone()
-                    $(@).find('.chat-item__content').prepend details
+                    profile = some-profile.clone()
+                    $(@).find('.chat-item__content').prepend profile
 
-                $(@).find('.chat-item__from').text(nickname)
+                $(@).find(sel '.chat-item__from', '.mx_SenderProfile_name').text(nickname)
                     .remove-class('js-chat-item-from').add-class('irc-from')
-                details.find('.chat-item__username').hide()
+                profile.find('.chat-item__username').hide()
 
         prev-nickname := nickname
 
     mutation-observer.take-records()
 
 mutation-observer = new MutationObserver(update)
-mutation-observer.observe $('#chat-container').0, {+child-list, +subtree}
+current-chat-container = null
 
-$('#chat-container').on 'click', '.irc-from', ->
-    nickname = $(@).text().replace(/^<|>$/g, '')
-    textarea = $('.chat-input__text-area')
-    textarea.val "#{nickname}, #{textarea.val()}"
+register = !->
+    chat-container = $(sel '#chat-container', '.mx_RoomView_MessageList')
+    if !chat-container.length || chat-container.0 == current-chat-container
+        return
+    current-chat-container := chat-container.0
+
+    update()
+
+    mutation-observer.observe chat-container.0, {+child-list, +subtree}
+
+    chat-container.on 'click', '.irc-from', ->
+        nickname = $(@).text().replace(/^<|>$/g, '')
+        if matrix
+            textarea = $('.mx_BasicMessageComposer_input')
+            div = textarea.children(":first")
+            div.html "#{nickname}, #{div.html()}"
+        else
+            textarea = $('.chat-input__text-area')
+            textarea.val "#{nickname}, #{textarea.val()}"
+        false
+
+set-interval register, 500
