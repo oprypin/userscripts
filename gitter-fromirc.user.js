@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IRC-to-Gitter bridge bot integration
 // @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-// @version      4
+// @version      5
 // @include      https://gitter.im/*
 // @include      https://app.element.io/*
 // @grant        none
@@ -32,10 +32,16 @@ update = function(){
   replacing = false;
   prevNickname = null;
   someAvatar = someProfile = null;
-  $(sel('.chat-item', '.mx_RoomView_MessageList>li')).each(function(){
-    var that, x$, nickname, avatar, profile;
+  $(sel('#chat-container .chat-item', '.mx_RoomView_MessageList>li>.mx_EventTile')).each(function(){
+    var that, avatar, profile, x$, nickname;
     if (that = one($(this).find(sel('.chat-item__username', '.mx_SenderProfile_name')))) {
-      replacing = that.text() === sel('@FromIRC', 'FromIRC (From IRC (bridge bot))');
+      replacing = that.text() === sel('@FromIRC', 'FromIRC (From IRC (bridge bot))') || that.hasClass('irc-from');
+    }
+    if (avatar = one($(this).find(sel('.chat-item__aside', '.mx_EventTile_avatar')))) {
+      someAvatar = avatar;
+    }
+    if (profile = one($(this).find(sel('.chat-item__details', '.mx_SenderProfile')))) {
+      someProfile = profile;
     }
     if (replacing) {
       x$ = $(this).find(sel('.chat-item__text strong', '.mx_EventTile_content strong')).first();
@@ -45,24 +51,37 @@ update = function(){
         $(this).addClass('chat-item__status');
         nickname = nickname.replace('* ', '');
       }
-      avatar = one($(this).find(sel('.chat-item__aside', '.mx_EventTile_avatar')));
       if (avatar || nickname !== prevNickname) {
         $(this).removeClass(sel('burstContinued', 'mx_EventTile_continuation')).addClass(sel('burstStart', null));
-        if (avatar) {
-          someAvatar = avatar;
-        } else {
+        if (!avatar) {
           avatar = someAvatar.clone();
-          $(this).find('.chat-item__container').prepend(avatar);
+          sel(function(it){
+            return it.prepend(avatar);
+          }, function(it){
+            return it.append(avatar);
+          })(
+          sel(function(it){
+            return it.find(sel('.chat-item__container'));
+          }, function(it){
+            return it;
+          })(
+          $(this)));
         }
         avatar.find('img').attr({
           src: "https://secure.gravatar.com/avatar/" + md5(nickname) + "?s=30&d=identicon",
           srcset: null
         });
-        if (profile = one($(this).find(sel('.chat-item__details', '.mx_SenderProfile')))) {
-          someProfile = profile;
-        } else {
+        if (!profile) {
           profile = someProfile.clone();
-          $(this).find('.chat-item__content').prepend(profile);
+          (function(it){
+            return it.prepend(profile);
+          })(
+          sel(function(it){
+            return it.find('.chat-item__content');
+          }, function(it){
+            return it;
+          })(
+          $(this)));
         }
         $(this).find(sel('.chat-item__from', '.mx_SenderProfile_name')).text(nickname).removeClass('js-chat-item-from').addClass('irc-from');
         profile.find('.chat-item__username').hide();
@@ -91,7 +110,7 @@ register = function(){
     nickname = $(this).text().replace(/^<|>$/g, '');
     if (matrix) {
       textarea = $('.mx_BasicMessageComposer_input');
-      div = textarea.children(":first");
+      div = textarea.children(':first');
       div.html(nickname + ", " + div.html());
     } else {
       textarea = $('.chat-input__text-area');

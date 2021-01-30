@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         IRC-to-Gitter bridge bot integration
 # @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-# @version      4
+# @version      5
 # @include      https://gitter.im/*
 # @include      https://app.element.io/*
 # @grant        none
@@ -23,9 +23,15 @@ update = !->
     prev-nickname = null
     some-avatar = some-profile = null
 
-    $(sel '.chat-item', '.mx_RoomView_MessageList>li').each !->
+    $(sel '#chat-container .chat-item', '.mx_RoomView_MessageList>li>.mx_EventTile').each !->
         if one $(@).find(sel '.chat-item__username', '.mx_SenderProfile_name')
-            replacing := that.text() == sel '@FromIRC', 'FromIRC (From IRC (bridge bot))'
+            replacing := that.text() == (sel '@FromIRC', 'FromIRC (From IRC (bridge bot))') || that.has-class('irc-from')
+
+        if avatar = one $(@).find(sel '.chat-item__aside', '.mx_EventTile_avatar')
+            some-avatar := avatar
+        if profile = one $(@).find(sel '.chat-item__details', '.mx_SenderProfile')
+            some-profile := profile
+
         if replacing
             $(@).find(sel '.chat-item__text strong', '.mx_EventTile_content strong').first()
                 nickname = ..text()
@@ -34,24 +40,19 @@ update = !->
                 $(@).add-class 'chat-item__status'
                 nickname .= replace('* ', '')
 
-            avatar = one $(@).find(sel '.chat-item__aside', '.mx_EventTile_avatar')
             if avatar || nickname != prev-nickname
                 $(@).remove-class(sel 'burstContinued', 'mx_EventTile_continuation').add-class(sel 'burstStart', null)
 
-                if avatar
-                    some-avatar := avatar
-                else
+                if !avatar
                     avatar = some-avatar.clone()
-                    $(@).find('.chat-item__container').prepend avatar
+                    $(@) |> (sel (.find(sel '.chat-item__container')), ->it) |> (sel (.prepend avatar), (.append avatar))
                 avatar.find('img').attr do
                     src: "https://secure.gravatar.com/avatar/#{md5(nickname)}?s=30&d=identicon"
                     srcset: null
 
-                if profile = one $(@).find(sel '.chat-item__details', '.mx_SenderProfile')
-                    some-profile := profile
-                else
+                if !profile
                     profile = some-profile.clone()
-                    $(@).find('.chat-item__content').prepend profile
+                    $(@) |> (sel (.find('.chat-item__content')), ->it) |> (.prepend(profile))
 
                 $(@).find(sel '.chat-item__from', '.mx_SenderProfile_name').text(nickname)
                     .remove-class('js-chat-item-from').add-class('irc-from')
@@ -78,7 +79,7 @@ register = !->
         nickname = $(@).text().replace(/^<|>$/g, '')
         if matrix
             textarea = $('.mx_BasicMessageComposer_input')
-            div = textarea.children(":first")
+            div = textarea.children(':first')
             div.html "#{nickname}, #{div.html()}"
         else
             textarea = $('.chat-input__text-area')
