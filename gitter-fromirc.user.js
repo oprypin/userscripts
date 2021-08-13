@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IRC-to-Gitter bridge bot integration
 // @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-// @version      5
+// @version      6
 // @include      https://gitter.im/*
 // @include      https://app.element.io/*
 // @grant        none
@@ -32,9 +32,9 @@ update = function(){
   replacing = false;
   prevNickname = null;
   someAvatar = someProfile = null;
-  $(sel('#chat-container .chat-item', '.mx_RoomView_MessageList>li>.mx_EventTile')).each(function(){
+  $(sel('#chat-container .chat-item', '.mx_RoomView_MessageList>li.mx_EventTile')).each(function(){
     var that, avatar, profile, x$, nickname;
-    if (that = one($(this).find(sel('.chat-item__username', '.mx_SenderProfile_name')))) {
+    if (that = one($(this).find(sel('.chat-item__username', '.mx_SenderProfile_displayName')))) {
       replacing = that.text() === sel('@FromIRC', 'FromIRC (From IRC (bridge bot))') || that.hasClass('irc-from');
     }
     if (avatar = one($(this).find(sel('.chat-item__aside', '.mx_EventTile_avatar')))) {
@@ -83,7 +83,7 @@ update = function(){
           })(
           $(this)));
         }
-        $(this).find(sel('.chat-item__from', '.mx_SenderProfile_name')).text(nickname).removeClass('js-chat-item-from').addClass('irc-from');
+        $(this).find(sel('.chat-item__from', '.mx_SenderProfile_displayName')).text(nickname).removeClass('js-chat-item-from').addClass('irc-from');
         profile.find('.chat-item__username').hide();
       }
     }

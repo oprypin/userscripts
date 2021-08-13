@@ -1,7 +1,7 @@
 # ==UserScript==
 # @name         IRC-to-Gitter bridge bot integration
 # @description  Substitute nicknames in messages written by @FromIRC (bridge bot)
-# @version      5
+# @version      6
 # @include      https://gitter.im/*
 # @include      https://app.element.io/*
 # @grant        none
@@ -23,8 +23,8 @@ update = !->
     prev-nickname = null
     some-avatar = some-profile = null
 
-    $(sel '#chat-container .chat-item', '.mx_RoomView_MessageList>li>.mx_EventTile').each !->
-        if one $(@).find(sel '.chat-item__username', '.mx_SenderProfile_name')
+    $(sel '#chat-container .chat-item', '.mx_RoomView_MessageList>li.mx_EventTile').each !->
+        if one $(@).find(sel '.chat-item__username', '.mx_SenderProfile_displayName')
             replacing := that.text() == (sel '@FromIRC', 'FromIRC (From IRC (bridge bot))') || that.has-class('irc-from')
 
         if avatar = one $(@).find(sel '.chat-item__aside', '.mx_EventTile_avatar')
@@ -54,7 +54,7 @@ update = !->
                     profile = some-profile.clone()
                     $(@) |> (sel (.find('.chat-item__content')), ->it) |> (.prepend(profile))
 
-                $(@).find(sel '.chat-item__from', '.mx_SenderProfile_name').text(nickname)
+                $(@).find(sel '.chat-item__from', '.mx_SenderProfile_displayName').text(nickname)
                     .remove-class('js-chat-item-from').add-class('irc-from')
                 profile.find('.chat-item__username').hide()
 
