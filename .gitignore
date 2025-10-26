@@ -9,3 +9,4 @@
 !/source/*.ls
 !/source/generate.sh
 !/*.user.js
+!/eslint.config.mjs
