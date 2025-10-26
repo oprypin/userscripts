@@ -4,10 +4,22 @@
 
 To use these, first you need to install a *userscript manager*.
 
-* [Violentmonkey](https://violentmonkey.github.io/about/) is recommended.
+* [Violentmonkey](https://violentmonkey.github.io/) is recommended.
+* For Chrome, [Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) is begrudgingly recommended.
 * Greasemonkey is **unsupported**.
 
 Then, click one of the "install" links below.
+
+
+## Multi-Export for Rebrickable
+
+**Download a ZIP archive of all your set- and partlists [on Rebrickable](https://rebrickable.com/my/partlists/)**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/rebrickable-multiexport.user.js)**
+| [Source code](rebrickable-multiexport.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/rebrickable-multiexport.user.js)
+
+![Screenshot](https://i.imgur.com/30ocep0.png)
 
 
 ## Hexcells levels clipper
