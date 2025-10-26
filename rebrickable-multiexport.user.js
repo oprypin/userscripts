@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Multi-Export for Rebrickable
 // @description Download a ZIP archive of all your set- and partlists
-// @version     1
+// @version     2
 // @match       https://rebrickable.com/users/*/setlists/*
 // @match       https://rebrickable.com/users/*/partlists/*
 // @match       https://rebrickable.com/users/*/lists/*
@@ -174,7 +174,7 @@ async function downloadRebrickableListsAsZip(kinds, print) {
           const resp = await fetchUrl(`https://rebrickable.com/users/${username}/lostparts/parts/?format=rbpartscsv&_=${+date}`);
           const text = await resp.text();
 
-          const filename = 'rebrickable_lostparts.csv';
+          const filename = 'rebrickable_parts_lost-parts.csv';
           print(`Exporting lost parts as "${filename}"...`);
           yield {filename, text};
         }
@@ -204,12 +204,12 @@ async function downloadRebrickableListsAsZip(kinds, print) {
         const listId = match[1];
         const listName = new DOMParser().parseFromString(match[2], 'text/html').documentElement.textContent;
         const listSuffix = (kindId === 'lists'
-          ? currentListSuffix
+          ? `custom_${currentListSuffix}`
           : (new RegExp(`data-url="/users/[^/ ]+/${kindId}/${listId}/setbuild/"\\s*>`).test(html) ? 'nobuild' : null)
         );
         const filename = [
           'rebrickable',
-          kindName.replace(/ |s$/g, ''),
+          itemsKind,
           listSuffix,
           listId,
           listName.replace(/[<>:"/\\|?* .]+/g, '_'),
