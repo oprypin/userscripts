@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Multi-Export for Rebrickable
 // @description Download a ZIP archive of all your set- and partlists
-// @version     2
+// @version     3
 // @match       https://rebrickable.com/users/*/setlists/*
 // @match       https://rebrickable.com/users/*/partlists/*
 // @match       https://rebrickable.com/users/*/lists/*
@@ -144,7 +144,7 @@ async function downloadRebrickableListsAsZip(kinds, print) {
         }
         throw error(message);
       }
-      return resp;
+      return [await resp.text(), resp];
     }
     throw error('Stopping retries');
   }
@@ -157,22 +157,21 @@ async function downloadRebrickableListsAsZip(kinds, print) {
   // `kinds` is a list of one or more of ['setlists', 'partlists', 'lists', 'lostparts'].
   async function* fetchRebrickableLists(kinds) {
     const date = new Date();
+    const exportedAltSets = [];
     for (const kindId of kinds) {
       const kindName = (kindId === 'lists' ? 'custom lists' : kindId);
       const itemsKind = (kindName === 'setlists' ? 'sets' : 'parts');
 
-      const resp = await fetchUrl(`https://rebrickable.com/my/${kindId}/`);
-      const html = await resp.text();
+      const [html, resp] = await fetchUrl(`https://rebrickable.com/my/${kindId}/`);
 
       if (username == null) {
-        username = new RegExp(`https://rebrickable\\.com/users/([^/ ]+)/${kindId}\\b`).exec(resp.url)[1];
+        [, username] = new RegExp(`https://rebrickable\\.com/users/([^/ ]+)/${kindId}\\b`).exec(resp.url);
         print(`Username: "${username}"`);
       }
 
       if (kindId === 'lostparts') {
         if (!html.includes('have 0 lost parts')) {
-          const resp = await fetchUrl(`https://rebrickable.com/users/${username}/lostparts/parts/?format=rbpartscsv&_=${+date}`);
-          const text = await resp.text();
+          const [text] = await fetchUrl(`https://rebrickable.com/users/${username}/lostparts/parts/?format=rbpartscsv&_=${+date}`);
 
           const filename = 'rebrickable_parts_lost-parts.csv';
           print(`Exporting lost parts as "${filename}"...`);
@@ -201,8 +200,8 @@ async function downloadRebrickableListsAsZip(kinds, print) {
           continue;
         }
 
-        const listId = match[1];
-        const listName = new DOMParser().parseFromString(match[2], 'text/html').documentElement.textContent;
+        const [, listId] = match;
+        const listName = parseHtml(match[2]).textContent;
         const listSuffix = (kindId === 'lists'
           ? `custom_${currentListSuffix}`
           : (new RegExp(`data-url="/users/[^/ ]+/${kindId}/${listId}/setbuild/"\\s*>`).test(html) ? 'nobuild' : null)
@@ -212,14 +211,41 @@ async function downloadRebrickableListsAsZip(kinds, print) {
           itemsKind,
           listSuffix,
           listId,
-          listName.replace(/[<>:"/\\|?* .]+/g, '_'),
+          getNameSlug(listName),
         ].filter(Boolean).join('_') + '.csv';
 
-        const resp = await fetchUrl(`https://rebrickable.com/users/${username}/${kindId}/${listId}/${itemsKind}/?format=rb${itemsKind}csv&_=${+date}`);
-        const text = await resp.text();
+        const [text] = await fetchUrl(`https://rebrickable.com/users/${username}/${kindId}/${listId}/${itemsKind}/?format=rb${itemsKind}csv&_=${+date}`);
 
         print(`Exporting "${listName}" as "${filename}"...`);
         yield {filename, text, comment: listName};
+
+        // Setlists can contain MOCs and B-models!
+        // They need to be exported because they're not in the database.
+        if (kindId !== 'setlists')
+          continue;
+        for (let [, altsetNum] of text.matchAll(/^(MOC-[0-9]+|[^, ]+-1-b[0-9]+),/gm)){
+          altsetNum = altsetNum.trim();
+          if (exportedAltSets.includes(altsetNum))
+            continue;
+          exportedAltSets.push(altsetNum);
+
+          let invId, name;
+          if (altsetNum.startsWith('MOC-')) {
+            const [html] = await fetchUrl(`https://rebrickable.com/mocs/${altsetNum}/`);
+            [, invId] = new RegExp('"/inventory/([0-9]+)/').exec(html);
+            name = parseHtml(new RegExp('<h1>MOC - (.+?)</h1>').exec(html)[1]).textContent;
+          } else {
+            const [html] = await fetchUrl(`https://rebrickable.com/sets/${altsetNum}/`);
+            [, invId] = new RegExp('"/inventory/([0-9]+)/').exec(html);
+            name = parseHtml(new RegExp('<h1>\\w{4} \\w{3} [^ ]+ - (.+?)</h1>').exec(html)[1]).textContent;
+          }
+
+          const [text] = await fetchUrl(`https://rebrickable.com/inventory/${invId}/parts/?format=rbpartscsv&_=${+new Date()}`);
+
+          const filename = `rebrickable_parts_${altsetNum.toLowerCase()}_${getNameSlug(name)}.csv`;
+          print(`Exporting "${name}" as "${filename}"...`);
+          yield {filename, text, comment: name};
+        }
       }
     }
   }
@@ -259,13 +285,22 @@ function downloadRebrickableListsAsZipWithModal(kinds, title) {
   $('#page_modal').modal();
 }
 
+function parseHtml(htmlContent) {
+  return new DOMParser().parseFromString(htmlContent, 'text/html').documentElement;
+}
+
+function getNameSlug(name) {
+  return name.replace(/[<>:"/\\|?* .]+/g, '_');
+}
+
+
 function addButtonsToDownloadRebrickableLists() {
   const backupButton = document.querySelector('button[data-url$="/backup/"]');
   if (backupButton == null)
     return;
   const backupUrl = backupButton.getAttribute('data-url');
 
-  const newBtnBlock = new DOMParser().parseFromString(`
+  const newBtnBlock = parseHtml(`
   <div class="btn-group btn-block">
     <button type="button" class="btn btn-default btn-block mt-6 dropdown-toggle" data-toggle="dropdown">
       <i class="fa fa-fw fa-cubes"></i> <span>Multi-Export (CSV Archive)</span> <span class="caret"></span>
@@ -273,7 +308,7 @@ function addButtonsToDownloadRebrickableLists() {
     <ul class="dropdown-menu" role="menu">
     </ul>
   </div>
-  `, 'text/html').documentElement.querySelector('div');
+  `).querySelector('div');
 
   const addMenuItem = function (title, kinds) {
     const newItem = document.createElement('li');
