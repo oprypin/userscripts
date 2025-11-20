@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "SetMaster for Rebrickable",
+    "description": "Export your collection and MOCs from Rebrickable to SetMaster",
+    "version": "1.0",
+    "icons": {
+        "16": "icon16.png",
+        "32": "icon32.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "content_scripts": [
+        {
+            "js": ["rebrickable-setmaster.user.js"],
+            "matches": [
+                "https://rebrickable.com/users/*/setlists/*",
+                "https://rebrickable.com/users/*/partlists/*",
+                "https://rebrickable.com/users/*/lists/*",
+                "https://rebrickable.com/mocs/MOC-*",
+                "https://rebrickable.com/sets/*",
+                "https://rebrickable.com/build/list/*"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "js": ["setmaster.js"],
+            "matches": [
+                "https://setmaster.pryp.in/*"
+            ],
+            "run_at": "document_start"
+        }
+    ]
+}

@@ -11,6 +11,19 @@ To use these, first you need to install a *userscript manager*.
 Then, click one of the "install" links below.
 
 
+## SetMaster for Rebrickable
+
+**Export your set- and partlists from [Rebrickable](https://rebrickable.com/my/partlists/) to [SetMaster](https://setmaster.pryp.in/)**
+
+**[Install](https://github.com/oprypin/userscripts/raw/master/rebrickable-setmaster/rebrickable-setmaster.user.js)**
+| [Source code](rebrickable-setmaster/rebrickable-setmaster.user.js)
+| [Changelog](https://github.com/oprypin/userscripts/commits/master/rebrickable-setmaster)
+
+![Screenshot](https://i.imgur.com/3osjIMO.png)
+
+Note: This is a **superset** of the userscript below, so you shouldn't install both of them.
+
+
 ## Multi-Export for Rebrickable
 
 **Download a ZIP archive of all your set- and partlists [on Rebrickable](https://rebrickable.com/my/partlists/)**
@@ -20,6 +33,8 @@ Then, click one of the "install" links below.
 | [Changelog](https://github.com/oprypin/userscripts/commits/master/rebrickable-multiexport.user.js)
 
 ![Screenshot](https://i.imgur.com/30ocep0.png)
+
+Note: This userscript may go away in the future in favor of the above script.
 
 
 ## Hexcells levels clipper

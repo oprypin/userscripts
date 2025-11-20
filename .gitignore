@@ -10,3 +10,7 @@
 !/source/generate.sh
 !/*.user.js
 !/eslint.config.mjs
+!/rebrickable-setmaster
+!/rebrickable-setmaster/*.js
+!/rebrickable-setmaster/*.json
+!/rebrickable-setmaster/*.png
